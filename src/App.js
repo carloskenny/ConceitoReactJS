@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; //useEffect é utilizada para disparar funções sempre que uma informação for alterada ou não, apenas quando quiser disparar alguma função quando o elemento for carregado na tela.
+import api from './services/api';
 
 import './App.css'; //importação do CSS
-
-import bgImage from './assets/background.jpg' //importação da imagem
 
 import Header from './components/Header'; //importação do componente Header
 
 function App() {
-  const [projects, setProjects] = useState(['Conceitos de NodeJS','Conceitos de ReactJS']);
+  const [projects, setProjects] = useState([]); // sempre inicialiar o useState com o tipo de aquivo que ele vai ter depois. Se for um array, inicializar com um array "[]", se for um objeto, inicializar com uma objeto "{}"
+
+  /**
+   * useEffect(()=>{},[]);
+   * useEffect recebe dois paramêtros.
+   * ()=>{} => 1ª é a função que é pra ser disparada
+   * [] => 2ª é quando a função deve ser disparada. (Array de dependências)
+   * 
+   * Quando eu quiser disparar a função toda vez que uma informação for alterada, coloco no segundo parametro o objeto.
+   * Para disparar apenas um vez, deixa o array vazio.
+   * 
+   */
+
+  useEffect(()=>{
+    api.get('projects').then(response => {
+      setProjects(response.data);
+    })
+  },[]);
+
+
+
 /*
   Conceito de Imutabilidade
   useState. A função useState sempre retorna um array com duas posições.
@@ -29,16 +48,12 @@ function App() {
   return (
     <>
       <Header title="Projects"/>
-
-      <img width={300} src={bgImage}/>
-
       <ul>
-        {projects.map(project => <li key={project}>{project}</li> )}
+        {projects.map(project => <li key={project.id}>{project.title}</li> )} 
       </ul>
 
       <button type="button" onClick={handleAddProject}>Adicionar projeto</button>
     </>
   );
 }
-
 export default App;
