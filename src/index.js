@@ -1,5 +1,6 @@
-const soma = (a , b) => {
-  return a * b;
-}
+import React from 'react';
+import { render } from 'react-dom';
 
-console.log(soma(6 , 8));
+import App from './App';
+
+render(<App />, document.getElementById('app')); //escrevendo o html dentro javascript JSX => (Javascript XML)
