@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-import Header from './components/Header';
+import './App.css'; //importação do CSS
+
+import bgImage from './assets/background.jpg' //importação da imagem
+
+import Header from './components/Header'; //importação do componente Header
 
 function App() {
   const [projects, setProjects] = useState(['Conceitos de NodeJS','Conceitos de ReactJS']);
@@ -25,6 +29,9 @@ function App() {
   return (
     <>
       <Header title="Projects"/>
+
+      <img width={300} src={bgImage}/>
+
       <ul>
         {projects.map(project => <li key={project}>{project}</li> )}
       </ul>

@@ -17,8 +17,21 @@ module.exports = { //exportar um objeto
         use: {
           loader: 'babel-loader', //usar o babel para converter o arquivo
         }
+      },
+      {
+        test: /\.css$/, 
+        exclude: /node_modules/, 
+        use: [
+          { loader: 'style-loader'},
+          { loader: 'css-loader'}
+        ]
+      },
+      {
+        test: /.*\.(.gif|png|jpe?g)$/i,
+        use: {
+          loader: 'file-loader',
+        }
       }
     ]
-
   },
 };
